@@ -1,3 +1,5 @@
-# GC
-<img src="assets/java.png.webp">
-Repositório para as atividades desenvolvidas no caldeira.
+<p align="center">
+  <img src="./assets/java.png.webp" width="700"/>
+</p>
+
+---
