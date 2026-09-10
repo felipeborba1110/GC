@@ -1,7 +1,10 @@
 package stardewManager;
 
 public interface Animal {
+    int getId();
+
     String emitirSom();
 
-    String coletarProduto();
+    void coletarProduto();
+
 }
