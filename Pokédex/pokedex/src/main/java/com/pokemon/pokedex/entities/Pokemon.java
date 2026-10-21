@@ -1,4 +1,13 @@
 package com.pokemon.pokedex.entities;
 
-public record Pokemon(Integer id, String name){
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@AllArgsConstructor
+@Getter
+@Setter
+public class Pokemon{
+    private Integer id;
+    private String name;
 }

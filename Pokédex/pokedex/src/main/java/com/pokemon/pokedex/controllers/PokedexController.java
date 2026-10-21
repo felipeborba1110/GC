@@ -3,50 +3,60 @@ package com.pokemon.pokedex.controllers;
 import com.pokemon.pokedex.entities.Pokemon;
 import com.pokemon.pokedex.services.PokedexService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.http.HttpResponse;
 import java.util.List;
 
 @RestController
 @RequestMapping("/pokedex")
 @AllArgsConstructor
 public class PokedexController {
-    private PokedexService service;
+    private final PokedexService service;
 
-    @GetMapping("/list")
-    public List<Pokemon> listarPokemons(){
-        return service.listPokemons();
+    @GetMapping
+    public ResponseEntity<List<Pokemon>> listarPokemons() {
+        return ResponseEntity.ok(service.listPokemons());
     }
 
-    @GetMapping("/pokemon/{pokemon_name}")
-    public Pokemon procurarPokemon(@PathVariable String pokemonName){
+    @GetMapping("/pokemon/{pokemonName}")
+    public ResponseEntity<Pokemon> procurarPokemon(@PathVariable String pokemonName){
         Pokemon pokemon = service.findPokemonByName(pokemonName);
         if (pokemon != null){
-            return pokemon;
+            return ResponseEntity.ok(pokemon);
         } else {
-            System.out.println("Pokemon não encontrado");
-            return null;
+            return ResponseEntity.notFound().build();
         }
     }
 
     @PostMapping("/pokemon")
-    public void criarPokemon(int id, String name){
-        service.addPokemon(id,name);
+    public ResponseEntity<Pokemon> criarPokemon(@RequestBody Pokemon pokemon){
+        service.addPokemon(pokemon);
+        return ResponseEntity.status(HttpStatus.CREATED).body(pokemon);
     }
 
-    @PutMapping("/pokemon/{pokemon_name}")
-    public void editarPokemon(int id, String name, @PathVariable String pokemonName){
-        Pokemon pokemon = procurarPokemon(pokemonName);
-        if (pokemon != null){
-            service.editPokemon(id,name,pokemon);
+    @PutMapping("/pokemon/{pokemonName}")
+    public ResponseEntity<Pokemon> editarPokemon(@RequestBody Pokemon newPokemon, @PathVariable String pokemonName){
+        Pokemon oldPokemon = service.findPokemonByName(pokemonName);
+        if (oldPokemon != null){
+            service.editPokemon(newPokemon,oldPokemon);
+            return ResponseEntity.ok(newPokemon);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 
-    @DeleteMapping("/pokemon/{pokemon_name}")
-    public void deletarPokemon(@PathVariable String pokemonName){
-        Pokemon pokemon = procurarPokemon(pokemonName);
+    @DeleteMapping("/pokemon/{pokemonName}")
+    public ResponseEntity<Void> deletarPokemon(@PathVariable String pokemonName){
+        Pokemon pokemon = service.findPokemonByName(pokemonName);
         if (pokemon != null){
             service.deletePokemon(pokemon);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 }

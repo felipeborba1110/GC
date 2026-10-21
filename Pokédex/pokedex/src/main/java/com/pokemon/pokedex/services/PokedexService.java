@@ -3,7 +3,6 @@ package com.pokemon.pokedex.services;
 import com.pokemon.pokedex.entities.Pokemon;
 import com.pokemon.pokedex.repositories.PokedexRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class PokedexService {
-    @Autowired
     private final PokedexRepository repository;
 
     public List<Pokemon> listPokemons() {
@@ -22,12 +20,14 @@ public class PokedexService {
         return repository.get(pokemonName);
     }
 
-    public void addPokemon(int id, String name){
-        repository.save(new Pokemon(id,name));
+    public void addPokemon(Pokemon pokemon){
+        if (findPokemonByName(pokemon.getName()) == null){
+            repository.save(pokemon);
+        }
     }
 
-    public void editPokemon(int id, String name, Pokemon pokemon){
-        repository.edit(new Pokemon(id,name),pokemon);
+    public void editPokemon(Pokemon newPokemon, Pokemon oldPokemon){
+        repository.edit(newPokemon,oldPokemon);
     }
 
     public void deletePokemon(Pokemon pokemon){
