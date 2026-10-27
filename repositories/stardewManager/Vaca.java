@@ -1,4 +1,4 @@
-package stardewManager;
+package repositories.stardewManager;
 
 public class Vaca implements Animal{
     private int id;

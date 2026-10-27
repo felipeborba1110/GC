@@ -1,4 +1,4 @@
-package stardewManager;
+package repositories.stardewManager;
 
 import java.util.Scanner;
 

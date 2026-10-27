@@ -1,4 +1,4 @@
-package stardewManager;
+package repositories.stardewManager;
 
 public class Main {
     public static void main(String[] args) {

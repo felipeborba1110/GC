@@ -1,4 +1,4 @@
-package stardewManager;
+package repositories.stardewManager;
 
 public class Pintinho extends Galinha{
     private GalinhaMae mae;

@@ -1,4 +1,4 @@
-package stardewManager;
+package repositories.stardewManager;
 
 public class Bezerro extends Vaca{
     private VacaMae mae;

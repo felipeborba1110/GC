@@ -1,4 +1,4 @@
-package stardewManager;
+package repositories.stardewManager;
 
 public interface Animal {
     int getId();
