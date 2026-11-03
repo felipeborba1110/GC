@@ -1,37 +1,14 @@
 package com.pokemon.pokedex.repositories;
 
 import com.pokemon.pokedex.entities.Pokemon;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class PokedexRepository {
-    private List<Pokemon> pokemons = new ArrayList<>();
-
-    public List<Pokemon> list() {
-        return List.copyOf(pokemons);
-    }
-
-    public Pokemon get(String pokemonName){
-        for(Pokemon pokemon : pokemons){
-            if(pokemon.getName().equalsIgnoreCase(pokemonName)){
-                return pokemon;
-            }
-        }
-        return null;
-    }
-
-    public void save(Pokemon pokemon){
-        pokemons.add(pokemon);
-    }
-
-    public void edit(Pokemon newPokemon, Pokemon oldPokemon){
-        pokemons.set((pokemons.indexOf(oldPokemon)),newPokemon);
-    }
-
-    public void delete(Pokemon pokemon){
-        pokemons.remove(pokemon);
-    }
+public interface PokedexRepository extends JpaRepository<Pokemon, Integer>, CrudRepository<Pokemon, Integer> {
+    Pokemon findByName(String name);
 }

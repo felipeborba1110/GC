@@ -1,5 +1,6 @@
 package com.pokemon.pokedex.controllers;
 
+import com.pokemon.pokedex.dtos.PokemonDTO;
 import com.pokemon.pokedex.entities.Pokemon;
 import com.pokemon.pokedex.services.PokedexService;
 import lombok.AllArgsConstructor;
@@ -18,45 +19,30 @@ public class PokedexController {
     private final PokedexService service;
 
     @GetMapping
-    public ResponseEntity<List<Pokemon>> listarPokemons() {
+    public ResponseEntity<List<PokemonDTO>> listarPokemons() {
         return ResponseEntity.ok(service.listPokemons());
     }
 
     @GetMapping("/pokemon/{pokemonName}")
-    public ResponseEntity<Pokemon> procurarPokemon(@PathVariable String pokemonName){
-        Pokemon pokemon = service.findPokemonByName(pokemonName);
-        if (pokemon != null){
-            return ResponseEntity.ok(pokemon);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<PokemonDTO> procurarPokemon(@PathVariable String pokemonName){
+        return ResponseEntity.ok(service.findPokemonByName(pokemonName));
     }
 
     @PostMapping("/pokemon")
-    public ResponseEntity<Pokemon> criarPokemon(@RequestBody Pokemon pokemon){
+    public ResponseEntity<PokemonDTO> criarPokemon(@RequestBody PokemonDTO pokemon){
         service.addPokemon(pokemon);
         return ResponseEntity.status(HttpStatus.CREATED).body(pokemon);
     }
 
     @PutMapping("/pokemon/{pokemonName}")
-    public ResponseEntity<Pokemon> editarPokemon(@RequestBody Pokemon newPokemon, @PathVariable String pokemonName){
-        Pokemon oldPokemon = service.findPokemonByName(pokemonName);
-        if (oldPokemon != null){
-            service.editPokemon(newPokemon,oldPokemon);
-            return ResponseEntity.ok(newPokemon);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<PokemonDTO> editarPokemon(@RequestBody PokemonDTO newPokemon, @PathVariable String oldPokemonName){
+        service.editPokemon(newPokemon,oldPokemonName);
+        return ResponseEntity.ok(newPokemon);
     }
 
     @DeleteMapping("/pokemon/{pokemonName}")
     public ResponseEntity<Void> deletarPokemon(@PathVariable String pokemonName){
-        Pokemon pokemon = service.findPokemonByName(pokemonName);
-        if (pokemon != null){
-            service.deletePokemon(pokemon);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        service.deletePokemonByName(pokemonName);
+        return ResponseEntity.noContent().build();
     }
 }
