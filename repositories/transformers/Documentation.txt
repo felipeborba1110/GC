@@ -1,0 +1,38 @@
+Identificação dos 7 erros:
+
+Erro 1: IndexOutOfBoundsException
+Onde: GerenciadorAutobots em calcularEnergonTotal()
+Boa prática violada: Não compila, tenta acessar um index do array fora do limite
+Correção: o for acessa valores menores que lista.lenght(), e não valores menores ou iguais;
+
+Erro 2: Nomeclatura das variaveis não tem identificação descritiva
+Onde: variaveis em Autobot, GerenciadorAutobots
+Boa prática violada: Nomeclatura de variaveis
+Correção: variavel n virou nome, variavel e virou energon e variavel a virou autobot.
+
+Erro 3: Comparação de Strings com ==
+Onde: GerenciadorAutobots em buscar
+Boa prática violada: Não se compara String com ==, mas sim equals().
+Correção: comparação com == utilizando equalsIgnoreCase();
+
+Erro 4: Bloco catch vazio
+Onde: gerenciadorAutobots em reparar
+Boa prática violada: Bloco catch, do try/catch não realiza nenhuma ação com o erro.
+Correção: removi o try/catch e quando for a condição do erro será lançado uma nova exceçao do tipo EnergonNegativoException.
+
+Erro 5: Variaveis não encapsuladas
+Onde: variaveis em Autobot
+Boa prática violada: As variaveis não deveriam ser acessadas diretamente, mas sim através dos getters e setters
+Correção: Modifiqueis o acesso das variaveis para private, criei os getters e setters e modifiquei o aecsso das variaveis usando os getters e setters nos GerenciaorAutobots/Main
+
+Erro 6: Variaveis globais
+Onde: GerenciaciadorAutobots
+Boa prática violada: Os números estão sendo usados sem dizer qual o motivo por trás deles, além disso ser for necessário alterar estes valores, seria necessário percorrer o código procurando seus usos.
+Correção: criaçao das variaveis globais ENERGON_MINIMO_AUTOBOT_ELITE, ENERGON_MINIMO_AUTOBOT_PADRAO, ENERGON_POR_REPARO guardando os valores dos números da regra de negócio.
+
+Erro 7: Javadoc muito generalista
+Onde: GerenciadorAutobots/Main
+Boa prática violada: A documentação em javadoc esta imprecisa e muito geral.
+Correção: Alterei a descrição das classes para ser mais descritiva, falando de seus metodos e responsabilidades.
+
+Possiveis futuros erros: Classes com muitas responsábilidades e nomeclatura de metodos pouco específica.
