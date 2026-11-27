@@ -1,3 +1,5 @@
+package repositories.springBallZ.ssj1;
+
 public class Student {
     private long registry;
     private String name;

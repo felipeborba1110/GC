@@ -1,4 +1,4 @@
-package newSteveCode;
+package repositories.newSteveCode;
 
 public class InicializeMaterial {
     Material madeira = new Material("Madeira",50,5,5);

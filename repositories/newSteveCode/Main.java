@@ -1,4 +1,4 @@
-package newSteveCode;
+package repositories.newSteveCode;
 
 public class Main {
     public static void main(String[] args) {

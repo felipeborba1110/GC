@@ -1,4 +1,4 @@
-package newSteveCode;
+package repositories.newSteveCode;
 
 public class Material {
     private String name;
